@@ -4,6 +4,7 @@
 import os
  
 from flask import Flask
+from huey import RedisHuey
 from micawber import bootstrap_basic
 from peewee import SqliteDatabase
  
@@ -13,5 +14,7 @@ DEBUG = False
  
 app = Flask(__name__)
 app.config.from_object(__name__)
+ 
 db = SqliteDatabase(app.config['DATABASE'], threadlocals=True)
+huey = RedisHuey()
 oembed = bootstrap_basic()
