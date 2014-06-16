@@ -12,4 +12,4 @@ api.setup()
 if __name__ == '__main__':
     Note.create_table(True)
     Task.create_table(True)
-    app.run()
+    app.run(debug=True)
