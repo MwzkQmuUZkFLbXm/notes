@@ -12,4 +12,4 @@ api.setup()
 if __name__ == '__main__':
     Note.create_table(True)
     Task.create_table(True)
-    app.run(debug=True)
+    app.run(debug=True, port=8001, host='127.0.0.1')
