@@ -31,3 +31,12 @@ def archive_note(id):
     except Note.DoesNotExist:
         abort(404)
     return jsonify({'success': True})
+
+@app.route('/delete/<id>/', methods=['POST'])
+def delete(id):
+    try:
+        pass
+    except Note.DoesNotExist:
+        abort(404)
+    return jsonify({'success': True})
+
