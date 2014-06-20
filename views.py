@@ -4,7 +4,14 @@ from flask import abort, jsonify, render_template, request
 from app import app
 from models import Note
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/',methods=['GET'])
+def index():
+    if request.method == 'GET':
+        notes = Note.objects(archived=False)
+    return render_template('index.html',notes=notes)
+
+
+@app.route('/create', methods=['GET', 'POST'])
 def homepage():
     if request.method == 'POST':
         if request.form.get('content'):
