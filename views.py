@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import abort, jsonify, render_template, request, redirect, url_for
+from flask import abort, jsonify, render_template, request, redirect, url_for, session, flash
 from app import app
 from models import Note
 
@@ -40,6 +40,10 @@ def delete(id):
         abort(404)
     return jsonify({'success': True})
 
+#@app.route('/register', methods=['GET', 'POST'])
+#def register():
+#    return render_template('register.html')
+
 @app.route('/login',methods=['GET', 'POST'])
 def login():
     error = None
@@ -49,5 +53,13 @@ def login():
         elif request.form['password'] != 'admin':
             error = 'Invalid password'
         else:
+            session['logged_in'] = True
+            flash('You were logged in')
             return redirect(url_for('homepage'))
     return render_template('login.html',error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('index'))
