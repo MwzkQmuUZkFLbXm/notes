@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Notes</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <!--link href="{{ url_for('static', filename='css/site.css') }}" rel="stylesheet"--!>
+    <link href="{{ url_for('static', filename='css/jumbotron.css') }}" rel="stylesheet">
+    <!--link href="{{ url_for('static', filename='css/site.css') }}" rel="stylesheet"-->
     <script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/imagesloaded.pkgd.min.js') }}"></script>
@@ -19,16 +20,42 @@
     </script>
   </head>
   <body>
-    <div class="container content">
-      <div class="page-header">
-        <h1>Notes</h1>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Notes</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="form">
+            <!--div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div-->
+            <button type="submit" class="btn btn-success">Login</button>
+            <button type="submit" class="btn btn-success">Register</button>
+          </form>
+        </div><!--/.navbar-collapse -->
       </div>
-      <!--form action="." class="form" id="note-form" method="post">
-        <button class="btn btn-primary btn-xs" type="submit">
-          <span class="glyphicon glyphicon-plus"></span> Add Note
-        </button>
-        <textarea class="form-control" id="content" name="content"></textarea>
-      </form--!>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, world!</h1>
+        <p>This is a simple blog powered by Flask, Mongodb, Nginx.</p>
+        <p>The source code is powered by <a href="http://charlesleifer.com/blog/saturday-morning-hack-a-little-note-taking-app-with-flask/"alt="charlesleifer" class="btn btn-primary btn-lg" role="button">Charlesleifer</a></p>
+      </div>
+    </div>
+    <div class="container content">
+      <!--div class="page-header">
+        <h1>Notes</h1>
+      </div-->
       <ul class="list-unstyled notes">
         {% for note in notes %}
           {% include "list.html" %}

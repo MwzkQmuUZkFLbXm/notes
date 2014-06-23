@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import abort, jsonify, render_template, request
+from flask import abort, jsonify, render_template, request, redirect, url_for
 from app import app
 from models import Note
 
@@ -24,7 +24,7 @@ def homepage():
     notes = Note.objects(archived=False)
     return render_template('homepage.html', notes=notes)
 
-@app.route('/archive/<id>/',methods=['POST'])
+@app.route('/archive/<id>',methods=['POST'])
 def archive_note(id):
     try:
         Note.objects(id=id).update(set__archived=True)
@@ -32,7 +32,7 @@ def archive_note(id):
         abort(404)
     return jsonify({'success': True})
 
-@app.route('/delete/<id>/', methods=['POST'])
+@app.route('/delete/<id>', methods=['POST'])
 def delete(id):
     try:
        Note.objects(id=id).delete() 
@@ -40,3 +40,14 @@ def delete(id):
         abort(404)
     return jsonify({'success': True})
 
+@app.route('/login',methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin@admin.com':
+            error = 'Invalid username'
+        elif request.form['password'] != 'admin':
+            error = 'Invalid password'
+        else:
+            return redirect(url_for('homepage'))
+    return render_template('login.html',error=error)
