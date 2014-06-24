@@ -4,14 +4,14 @@ from flask import abort, jsonify, render_template, request, redirect, url_for, s
 from app import app
 from models import Note
 
-@app.route('/',methods=['GET'])
-def index():
-    if request.method == 'GET':
-        notes = Note.objects(archived=False)
-    return render_template('index.html',notes=notes)
+#@app.route('/',methods=['GET'])
+#def index():
+#    if request.method == 'GET':
+#        notes = Note.objects(archived=False)
+#    return render_template('index.html',notes=notes)
+#
 
-
-@app.route('/create', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def homepage():
     if request.method == 'POST':
         if request.form.get('content'):
@@ -62,4 +62,4 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
-    return redirect(url_for('index'))
+    return redirect(url_for('homepage'))
