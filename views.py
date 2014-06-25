@@ -4,15 +4,8 @@ from flask import abort, jsonify, render_template, request, redirect, url_for, s
 from app import app
 from models import Note
 
-#@app.route('/',methods=['GET'])
-#def index():
-#    if request.method == 'GET':
-#        notes = Note.objects(archived=False)
-#    return render_template('index.html',notes=notes)
-#
-
-@app.route('/', methods=['GET', 'POST'])
-def homepage():
+@app.route('/create', methods=['GET', 'POST'])
+def create():
     if request.method == 'POST':
         if request.form.get('content'):
             note = Note(content=request.form['content'])
@@ -21,6 +14,16 @@ def homepage():
             return jsonify({'note':rendered, 'success': True})
         return jsonify({'success': False})
 
+    notes = Note.objects(archived=False)
+    return render_template('create.html', notes=notes)
+
+@app.route('/manage', methods=['GET'])
+def manage():
+    notes = Note.objects()
+    return render_template('manage.html', notes=notes)
+
+@app.route('/', methods=['GET'])
+def homepage():
     notes = Note.objects(archived=False)
     return render_template('homepage.html', notes=notes)
 
@@ -55,7 +58,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('homepage'))
+            return redirect(url_for('create'))
     return render_template('login.html',error=error)
 
 @app.route('/logout')

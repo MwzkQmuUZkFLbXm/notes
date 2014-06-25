@@ -1,0 +1,21 @@
+{% extends "lepture.html"%}
+{% block body %}
+    <div class="editor-wrapper">
+      <hr></hr>
+      {% if session.logged_in %}
+      <form action="{{ url_for('create')}}" class="form" id="note-form" method="post">
+        <input  name="title" class="title" type="text" placeholder="Title">
+        <textarea id="editor" name="content"></textarea>
+        <button class="btn btn-primary btn-xs" type="submit">
+          <span class="glyphicon glyphicon-plus"></span> Add Note
+        </button>
+      </form>
+      {% endif %}
+    </div>
+    <script type="text/javascript">
+      $(function() {
+        var editor = new Editor();
+        editor.render();
+      });
+    </script>
+{% endblock %}
