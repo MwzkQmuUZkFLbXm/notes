@@ -33,15 +33,15 @@
       </div>
       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav navbar-right">
+          {% if not session.logged_in %}
           <li>
-            {% if not session.logged_in %}
             <a href="{{ url_for('login') }}">Login</a>
           </li>
+          {% else %}
           <li>
-            {% else %}
             <a href="{{ url_for('logout')}}">Logout</a>
-            {% endif %}
           </li>
+          {% endif %}
         </ul>
       </nav>
     </div>
