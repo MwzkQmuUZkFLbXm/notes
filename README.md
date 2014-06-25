@@ -39,6 +39,6 @@ Credits
 Todo
 ====
 
-1. 添加多用户动能
+1. 添加多用户功能
 2. RESTful API
 3. 重构前端
