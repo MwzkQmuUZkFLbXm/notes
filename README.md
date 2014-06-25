@@ -13,7 +13,7 @@ Credits
 
 ##建议利用[Virtualenv](http://virtualenv.readthedocs.org/en/latest/)进行本地环境搭建
 
-1. 创建虚拟环境
+* 创建虚拟环境
 
     * ```pip install virtualenv```
     
@@ -23,7 +23,7 @@ Credits
     
     * ```source bin/activate```
 
-2. 克隆代码
+* 克隆代码
 
     * ```git clone git@github.com:kmlg/notes.git```
     
@@ -32,7 +32,7 @@ Credits
     * ```pip install -r requirements.txt```
     
 
-3. 运行应用
+* 运行应用
 
     * ```python manage.py```
 
