@@ -4,8 +4,8 @@ from flask import abort, jsonify, render_template, request, redirect, url_for, s
 from app import app
 from models import Note
 
-@app.route('/create', methods=['GET', 'POST'])
-def create():
+@app.route('/add', methods=['GET','POST'])
+def add():
     if request.method == 'POST':
         if request.form.get('content'):
             note = Note(content=request.form['content'])
@@ -15,14 +15,14 @@ def create():
         return jsonify({'success': False})
 
     notes = Note.objects(archived=False)
-    return render_template('create.html', notes=notes)
+    return render_template('add.html', notes=notes)
 
 @app.route('/manage', methods=['GET'])
 def manage():
     notes = Note.objects()
     return render_template('manage.html', notes=notes)
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def homepage():
     notes = Note.objects(archived=False)
     return render_template('homepage.html', notes=notes)
@@ -43,10 +43,6 @@ def delete(id):
         abort(404)
     return jsonify({'success': True})
 
-#@app.route('/register', methods=['GET', 'POST'])
-#def register():
-#    return render_template('register.html')
-
 @app.route('/login',methods=['GET', 'POST'])
 def login():
     error = None
@@ -58,7 +54,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('create'))
+            return redirect(url_for('add'))
     return render_template('login.html',error=error)
 
 @app.route('/logout')
