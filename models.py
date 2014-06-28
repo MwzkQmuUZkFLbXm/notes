@@ -7,6 +7,7 @@ from markdown import markdown
 from micawber import parse_html
 
 class Note(db.Document):
+    title = db.StringField(max_length=255, required=True)
     content = db.StringField(required=True)
     timestamp = db.DateTimeField(default=datetime.datetime.now,
             required=True)

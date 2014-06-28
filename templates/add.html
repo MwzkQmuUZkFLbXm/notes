@@ -1,9 +1,8 @@
 {% extends "lepture.html"%}
 {% block body %}
     <div class="editor-wrapper">
-      <hr></hr>
       {% if session.logged_in %}
-      <form action="{{ url_for('add')}}" class="form" id="note-form" method="post">
+      <form action="{{ url_for('add') }}" method="post">
         <input  name="title" class="title" type="text" placeholder="Title">
         <textarea id="editor" name="content"></textarea>
         <button type="submit">
