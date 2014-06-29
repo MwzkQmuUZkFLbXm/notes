@@ -1,27 +1,36 @@
 # -*- coding: utf-8 -*-
 
-from flask import abort, jsonify, render_template, request, redirect, url_for, session, flash
+from urlparse import urljoin
+from werkzeug.contrib.atom import AtomFeed
+from flask import abort, jsonify, render_template, request, redirect, url_for, session
 from app import app
 from models import Note
 
-@app.route('/post', methods=['POST'])
-def post():
-    if not session.get('logged_in'):
-        abort(401)
-    if request.method == 'POST':
-        if request.form.get('content') and request.form.get('title'):
-            title = request.form['title']
-            content = request.form['content']
-            note = Note(title=title, content=content)
-            note.save()
-            return redirect(url_for('index'))
-    return redirect(url_for('add'))
+#@app.route('/post', methods=['POST'])
+#def post():
+#    if not session.get('logged_in'):
+#        abort(401)
+#    if request.method == 'POST':
+#        if request.form.get('content') and request.form.get('title'):
+#            title = request.form['title']
+#            content = request.form['content']
+#            note = Note(title=title, content=content)
+#            note.save()
+#            return redirect(url_for('index'))
+#    return redirect(url_for('add'))
 
 
 @app.route('/add',methods=['GET', 'POST'])
 def add():
     if not session.get('logged_in'):
-        abort(401)
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        if request.form.get('title') and request.form.get('content'):
+            title = request.form['title']
+            content = request.form['content']
+            note = Note(title=title, content=content)
+            note.save()
+            return redirect(url_for('index'))
     else:
         return render_template('add.html')
 
@@ -58,6 +67,8 @@ def index():
 
 @app.route('/login',methods=['GET', 'POST'])
 def login():
+    if session.get('logged_in'):
+        return redirect(url_for('add'))
     error = None
     if request.method == 'POST':
         if request.form['username'] != 'admin@admin.com':
@@ -66,12 +77,28 @@ def login():
             error = 'Invalid password'
         else:
             session['logged_in'] = True
-            flash('You were logged in')
             return redirect(url_for('add'))
     return render_template('login.html',error=error)
 
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
-    flash('You were logged out')
     return redirect(url_for('index'))
+
+
+@app.route('/rss')
+def rss():
+    feed = AtomFeed('Recent Aiticles',
+            feed_url=request.url, url=request.url_root)
+    notes = Note.objects.all()
+    for note in notes:
+        feed.add(note.title,
+                note.content,
+                content_type='html',
+                author="KMLG",
+                #url=note.detail(),
+                id=note.id,
+                updated=note.timestamp,
+                #published=post.pub_date
+                )
+    return feed.get_response()

@@ -14,7 +14,7 @@ class Note(db.Document):
     archived = db.BooleanField(default=False)
 
     def __unicode__(self):
-        return self,title, self.content
+        return self.title
 
     def html(self):
         html = parse_html(

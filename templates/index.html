@@ -1,91 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!--link href="http://gmpg.org/xfn/11" rel="profile"-->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <title>Blog</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="/static/css/style.css">
-
-    <!-- Favicons -->
-    <!--link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/ico/apple-touch-icon-144-precomposed.png"-->
-    <!--link rel="shortcut icon" href="/public/ico/favicon.ico" type="image/x-icon"-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- RSS -->
-    <!--link rel="alternate" type="application/rss+xml" title="RSS for Official Bootstrap Blog" href="/feed.xml"-->
-
-    <!-- Analytics -->
-    <!--script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-146052-12', 'getbootstrap.com');
-      ga('send', 'pageview');
-    </script-->
-  </head>
-  <body>
-      <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
-    <div class="container">
-      <div class="navbar-header">
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-          <a href="{{ url_for('index')}}" class="navbar-brand">Home</a>
-          {% if session.logged_in %}
-          <a href="#" class="navbar-brand">Manage</a>
-          <a href="{{ url_for('add')}}" class="navbar-brand">Add</a>
-          {% endif %}
-      </div>
-      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-        <ul class="nav navbar-nav navbar-right">
-          {% if not session.logged_in %}
-          <li>
-            <a href="{{ url_for('login') }}">Login</a>
-          </li>
-          {% else %}
-          <li>
-            <a href="{{ url_for('logout')}}">Logout</a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </div>
-    </header>
-  <div class="masthead">
-      <div class="container">
-        <a class="bs-docs-booticon" href="feed.xml">R</a>
-        <h1>Powered By Flask, MongoDB, Bootstrap.</h1>
-        <h1>Inspired By <a href="https://yuehu.io/be-a-programmer">阅乎</a></h1>
-      </div>
-    </div>
+{% extends 'head.html'%}
+{% block content %}
     <div class="container">
         <div class="posts">
           {% for note in notes %}
             <div class="post">
             <h1 class="post.title"><a href={{ url_for('detail', id=note.id) }}>{{ note.title }}</a></h1>
-            <span>{{ note.timestamp.strftime('%Y-%m-%d %H:%M:%S').lower() }}</span>
+            <span>{{ note.timestamp.strftime('%Y-%m-%d %H:%M').lower() }}</span>
             <p>{{ note.html() }}</p>
             </div>
           {% endfor %}
         </div>
-    <div>
-          <p>© 2014. <a href="https://github.com/kmlg">KMLG</a> All rights reserved.</p>
-        </div>
-    </div>
-    </body>
-</html>
+{% endblock %}

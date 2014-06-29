@@ -47,7 +47,6 @@
         </button>
           <a href="{{ url_for('index')}}" class="navbar-brand">Home</a>
           {% if session.logged_in %}
-          <a href="#" class="navbar-brand">Manage</a>
           <a href="{{ url_for('add')}}" class="navbar-brand">Add</a>
           {% endif %}
       </div>
@@ -68,11 +67,12 @@
     </header>
     <div class="masthead">
         <div class="container">
-            <a class="bs-docs-booticon" href="feed.xml">R</a>
+            <a class="bs-docs-booticon" href="{{ url_for('rss') }}">R</a>
             <h1>Powered By Flask, MongoDB, Bootstrap.</h1>
             <h1>Inspired By <a href="https://yuehu.io/be-a-programmer">阅乎</a></h1>
         </div>
     </div>
+    {% block content%}{% endblock %}
     <div>
         <p>© 2014. <a href="https://github.com/kmlg">KMLG</a> All rights reserved.</p>
     </div>

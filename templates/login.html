@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block body%}
 <div class="container">
-  <form class="form-signin" role="form" action="{{ url_for('login') }}" method=post>
+    <form class="form-signin" role="form" action="{{ url_for('login') }}" method=post>
+        {% if error %}<p><strong>Error:</strong> {{ error }}{% endif %}
         <h2 class="form-signin-heading">Please sign in</h2>
         <input name="username" type="text" class="form-control" placeholder="Email address" required autofocus>
         <input name="password" type="password" class="form-control" placeholder="Password" required>
@@ -9,7 +10,7 @@
           <input type="checkbox" value="remember-me"> Remember me
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+    </form>
 
     </div> <!-- /container -->
     <!-- Bootstrap core JavaScript
