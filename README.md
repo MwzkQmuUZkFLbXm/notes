@@ -7,6 +7,7 @@ Credits
 =======
 
 [charlesleifer](http://charlesleifer.com/blog/saturday-morning-hack-a-little-note-taking-app-with-flask/)
+
 [lepture](https://github.com/lepture/editor)
 
 本地部署
