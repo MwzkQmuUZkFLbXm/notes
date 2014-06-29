@@ -14,9 +14,18 @@ class Note(db.Document):
     archived = db.BooleanField(default=False)
 
     def __unicode__(self):
-        return self.content
+        return self,title, self.content
 
     def html(self):
+        html = parse_html(
+                markdown(self.content[:300]),
+                oembed,
+                maxwidth=300,
+                urlize_all=True
+                )
+        return Markup(html)
+
+    def detail(self):
         html = parse_html(
                 markdown(self.content),
                 oembed,
@@ -24,7 +33,6 @@ class Note(db.Document):
                 urlize_all=True
                 )
         return Markup(html)
-
     meta = {
             'ordering':['-timestamp']
             }

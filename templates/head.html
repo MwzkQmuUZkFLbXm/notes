@@ -66,26 +66,16 @@
       </nav>
     </div>
     </header>
-  <div class="masthead">
-      <div class="container">
-        <a class="bs-docs-booticon" href="feed.xml">R</a>
-        <h1>Powered By Flask, MongoDB, Bootstrap.</h1>
-        <h1>Inspired By <a href="https://yuehu.io/be-a-programmer">阅乎</a></h1>
-      </div>
-    </div>
-    <div class="container">
-        <div class="posts">
-          {% for note in notes %}
-            <div class="post">
-            <h1 class="post.title"><a href={{ url_for('detail', id=note.id) }}>{{ note.title }}</a></h1>
-            <span>{{ note.timestamp.strftime('%Y-%m-%d %H:%M:%S').lower() }}</span>
-            <p>{{ note.html() }}</p>
-            </div>
-          {% endfor %}
+    <div class="masthead">
+        <div class="container">
+            <a class="bs-docs-booticon" href="feed.xml">R</a>
+            <h1>Powered By Flask, MongoDB, Bootstrap.</h1>
+            <h1>Inspired By <a href="https://yuehu.io/be-a-programmer">阅乎</a></h1>
         </div>
+    </div>
     <div>
-          <p>© 2014. <a href="https://github.com/kmlg">KMLG</a> All rights reserved.</p>
-        </div>
+        <p>© 2014. <a href="https://github.com/kmlg">KMLG</a> All rights reserved.</p>
     </div>
-    </body>
+    </div>
+   </body>
 </html>

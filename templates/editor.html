@@ -2,19 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <style type="text/css">
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: #f9f9f7;
+      }
+      .editor-wrapper {
+        max-width: 680px;
+        padding: 10px;
+        margin: 60px auto;
+      }</style>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Notes</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/justified-nav.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/jumbotron.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/editor.css') }}" rel="stylesheet" />
+    <script src="{{ url_for('static', filename='js/marked.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/masonry.pkgd.min.js') }}"></script>
-    <link href="{{ url_for('static', filename='css/editor.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
-  </head>
+   </head>
   <body>
     <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
     <div class="container">
@@ -25,11 +35,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-          <a href="#" class="navbar-brand">Notes</a>
-          {% if session.logged_in %}
-          <a href="#" class="navbar-brand">Manage</a>
-          <a href="#" class="navbar-brand">Add</a>
-          {% endif %}
+        <a href="#" class="navbar-brand">Home</a>
+        <a href="#" class="navbar-brand">Manage</a>
+        <a href="#" class="navbar-brand">Add</a>
       </div>
       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav navbar-right">
@@ -46,6 +54,22 @@
       </nav>
     </div>
     </header>
-    {% block body %}{% endblock%}
+    <div class="editor-wrapper">
+        {% if session.logged_in %}
+        <form action="{{ url_for('add') }}" method="post">
+        <input  name="title" class="title" type="text" placeholder="Title">
+        <textarea id="editor" name="content"></textarea>
+        <button type="submit">
+        <span class="glyphicon glyphicon-plus"></span> Add Note
+        </button>
+        </form>
+        {% endif %}
+        </div>
+    <script type="text/javascript">
+      $(function() {
+        var editor = new Editor();
+        editor.render();
+      });
+    </script>
   </body>
 </html>

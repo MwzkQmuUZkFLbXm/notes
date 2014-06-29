@@ -3,8 +3,12 @@
     <div class="panel-heading">
       {{ note.timestamp.strftime('%Y-%m-%d %H:%M:%S').lower()}}
       {% if session.logged_in %}
-      <a class="btn btn-danger btn-xs archive-note pull-right" data-note="{{ note.id }}" href="{{ url_for('archive_note', id=note.id) }}">A</a>
-      <a class="btn btn-danger btn-xs archive-note pull-right" data-note="{{ note.id }}" href="{{ url_for('delete', id=note.id) }}">X</a>
+      <a class="btn btn-danger btn-xs archive-note pull-right" 
+      data-note="{{ note.id }}" 
+      href="{{ url_for('archive_note', id=note.id) }}">A</a>
+      <a class="btn btn-danger btn-xs archive-note pull-right" 
+      data-note="{{ note.id }}" 
+      href="{{ url_for('delete', id=note.id) }}">X</a>
       {% endif %}
     </div>
     <div class="panel-body">
